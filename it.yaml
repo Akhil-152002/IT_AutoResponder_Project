@@ -1,0 +1,33 @@
+---
+- name: Create ServiceNow Ticket
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    short_description: "New IT issue from auto-responder"
+    description: "This ticket was auto-created from an email that could not be resolved automatically."
+
+  tasks:
+    - name: Create ticket in ServiceNow
+      uri:
+        url: "{{ lookup('env', 'SNOW_INSTANCE_URL') }}/api/now/table/{{ lookup('env', 'SNOW_API_TABLE') }}"
+        method: POST
+        user: "{{ lookup('env', 'SNOW_API_USERNAME') }}"
+        password: "{{ lookup('env', 'SNOW_API_PASSWORD') }}"
+        force_basic_auth: yes
+        headers:
+          Content-Type: "application/json"
+          Accept: "application/json"
+        body_format: json
+        body:
+          short_description: "{{ short_description }}"
+          description: "{{ description }}"
+          urgency: "2"
+          impact: "2"
+        status_code: 201
+        return_content: yes
+      register: snow_response
+
+    - name: Output created ticket number
+      debug:
+        msg: "Created ServiceNow ticket number: {{ snow_response.json.result.number }}"
