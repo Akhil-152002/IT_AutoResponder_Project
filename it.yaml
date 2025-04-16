@@ -10,10 +10,10 @@
   tasks:
     - name: Create ticket in ServiceNow
       uri:
-        url: "{{ SNOW_INSTANCE_URL }}/api/now/table/{{ SNOW_API_TABLE }}"
+        url: "{{ service_now_instance  }}/api/now/table/{{ SNOW_API_TABLE }}"
         method: POST
-        user: "{{ SNOW_API_USERNAME }}"
-        password: "{{ SNOW_API_PASSWORD }}"
+        user: "{{ service_now_username }}"
+        password: "{{ service_now_password }}"
         force_basic_auth: yes
         headers:
           Content-Type: "application/json"
