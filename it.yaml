@@ -5,15 +5,15 @@
 
   vars:
     short_description: "New IT issue from auto-responder"
-    description: "This ticket was auto-created from an email that could not be resolved automatically."
+    description: "This ticket was auto-created based on an email support request."
 
   tasks:
     - name: Create ticket in ServiceNow
       uri:
-        url: "{{ lookup('env', 'SNOW_INSTANCE_URL') }}/api/now/table/{{ lookup('env', 'SNOW_API_TABLE') }}"
+        url: "{{ SNOW_INSTANCE_URL }}/api/now/table/{{ SNOW_API_TABLE }}"
         method: POST
-        user: "{{ lookup('env', 'SNOW_API_USERNAME') }}"
-        password: "{{ lookup('env', 'SNOW_API_PASSWORD') }}"
+        user: "{{ SNOW_API_USERNAME }}"
+        password: "{{ SNOW_API_PASSWORD }}"
         force_basic_auth: yes
         headers:
           Content-Type: "application/json"
