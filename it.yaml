@@ -10,7 +10,7 @@
   tasks:
     - name: Create ticket in ServiceNow
       uri:
-        url: "{{ service_now_instance  }}/api/now/table/{{ SNOW_API_TABLE }}"
+        url: "{{ service_now_instance }}/api/now/table/incident"
         method: POST
         user: "{{ service_now_username }}"
         password: "{{ service_now_password }}"
